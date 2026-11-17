@@ -1,0 +1,52 @@
+@startuml
+class Room {
+  +id: int
+  +category: string
+  +title: string
+  +price: int
+  +capacity: int
+  +area: decimal
+  +image: string
+  +amenities: string
+}
+class Booking {
+  +id: int
+  +roomId: int
+  +firstName: string
+  +lastName: string
+  +phone: string
+  +email: string
+  +checkIn: date
+  +checkOut: date
+  +status: BookingStatus
+  +createdAt: datetime
+  +validate(): bool
+  +overlapsApprovedPeriod(): bool
+}
+enum BookingStatus {
+  Новая
+  Одобрена
+  Отклонена
+}
+class Administrator {
+  +login: string
+  +authenticate(): bool
+  +approve(booking): bool
+  +reject(booking): void
+  +delete(booking): void
+}
+class CatalogService {
+  +filter(category, minPrice, maxPrice, capacity): Room[]
+  +randomRooms(limit): Room[]
+}
+class BookingService {
+  +create(data): Booking
+  +checkAvailability(roomId, checkIn, checkOut): bool
+}
+Room "1" <-- "0..*" Booking : относится к
+Booking --> BookingStatus
+Administrator ..> Booking : модерирует
+CatalogService ..> Room
+BookingService ..> Booking
+BookingService ..> Room
+@enduml

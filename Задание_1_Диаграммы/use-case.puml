@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+actor "Гость" as Guest
+actor "Администратор" as Admin
+rectangle "Сервис бронирования «Сладкие сны»" {
+  usecase "Просматривать сайт" as UC1
+  usecase "Просматривать каталог" as UC2
+  usecase "Фильтровать номера\nпо категории, цене и местам" as UC3
+  usecase "Выбрать номер" as UC4
+  usecase "Отправить заявку\nна бронирование" as UC5
+  usecase "Проверить даты\nи доступность" as UC6
+  usecase "Войти в панель" as UC7
+  usecase "Просматривать заявки" as UC8
+  usecase "Одобрить заявку" as UC9
+  usecase "Отклонить заявку" as UC10
+  usecase "Удалить заявку" as UC11
+  usecase "Управлять каталогом номеров" as UC12
+}
+Guest --> UC1
+Guest --> UC2
+Guest --> UC3
+Guest --> UC4
+Guest --> UC5
+UC5 .> UC6 : <<include>>
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+UC9 .> UC6 : <<include>>
+@enduml
